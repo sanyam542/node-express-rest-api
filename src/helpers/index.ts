@@ -1,0 +1,15 @@
+import crypto from "crypto";
+
+const SECRET =
+  process.env.SECRET ||
+  (() => {
+    throw new Error("SECRET is not defined");
+  })();
+
+export const random = () => crypto.randomBytes(128).toString("base64");
+export const authentication = (salt: string, password: string) => {
+  return crypto
+    .createHmac("sha256", [salt, password].join("/"))
+    .update(SECRET)
+    .digest("hex");
+};
