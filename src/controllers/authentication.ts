@@ -1,6 +1,7 @@
+//@ts-nocheck
 import express from "express";
-import { createUser, getUsersByEmail } from "models/user";
-import { authentication, random } from "helpers";
+import { authentication, random } from "../helpers";
+import { createUser, getUsersByEmail } from "../models/user";
 
 export const register = async (req: express.Request, res: express.Response) => {
   try {
@@ -50,7 +51,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     const expectedHash = authentication(user.authentication.salt, password);
 
-    if (user.authentication?.password !== expectedHash) {
+    if (user.authentication.password !== expectedHash) {
       res.sendStatus(403);
     }
 

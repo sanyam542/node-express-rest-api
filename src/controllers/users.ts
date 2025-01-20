@@ -1,6 +1,6 @@
 import express from "express";
 
-import { deleteUsersId, getUsers, getUsersId } from "models/user";
+import { deleteUsersId, getUsers, getUsersId } from "../models/user";
 
 export const getAllUsers = async (
   req: express.Request,
@@ -36,6 +36,9 @@ const updateUser = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(400);
     }
     const user = await getUsersId(id);
+    if (!user) {
+      return res.sendStatus(400);
+    }
     user.username = username;
     await user.save();
     return res.status(200).json(user).end();

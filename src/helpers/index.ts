@@ -1,7 +1,7 @@
 import crypto from "crypto";
 
 const SECRET =
-  process.env.SECRET ||
+  process.env.CRYPTO_SECRET ||
   (() => {
     throw new Error("SECRET is not defined");
   })();

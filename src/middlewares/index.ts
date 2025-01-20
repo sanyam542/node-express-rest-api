@@ -1,7 +1,7 @@
 import express from "express";
 import { get, identity, merge } from "lodash";
 
-import { getUsersSessionToken } from "models/user";
+import { getUsersSessionToken } from "../models/user";
 
 export const isOwner = async (
   req: express.Request,
@@ -10,12 +10,12 @@ export const isOwner = async (
 ) => {
   try {
     const { id } = req.params;
-    const currentUserId = get(req, "identity._id") as string;
+    const currentUserId = get(req, "identity._id");
     if (!currentUserId) {
       return res.sendStatus(403);
     }
 
-    if (currentUserId.toString() !== id) {
+    if (String(currentUserId).toString() !== id) {
       return res.sendStatus(403);
     }
 
