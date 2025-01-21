@@ -1,10 +1,12 @@
 import crypto from "crypto";
+import dotenv from "dotenv";
+dotenv.config();
 
-const SECRET =
-  process.env.CRYPTO_SECRET ||
-  (() => {
-    throw new Error("SECRET is not defined");
-  })();
+const SECRET = process.env.CRYPTO_SECRET;
+
+if (!SECRET) {
+  throw new Error("SECRET is not defined");
+}
 
 export const random = () => crypto.randomBytes(128).toString("base64");
 export const authentication = (salt: string, password: string) => {
