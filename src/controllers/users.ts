@@ -1,6 +1,6 @@
 import express from "express";
 
-import { deleteUsersId, getUsers, getUsersId } from "../models/user";
+import { getUsers, getUsersId, deleteUsersId } from "../models/user";
 
 export const getAllUsers = async (
   req: express.Request,
@@ -28,7 +28,10 @@ export const deleteUser = async (
     return res.sendStatus(400);
   }
 };
-const updateUser = async (req: express.Request, res: express.Response) => {
+export const updateUser = async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const { id } = req.params;
     const { username } = req.body;

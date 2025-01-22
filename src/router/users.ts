@@ -1,6 +1,6 @@
 import express from "express";
 
-import { deleteUser, getAllUsers } from "../controllers/users";
+import { deleteUser, getAllUsers, updateUser } from "../controllers/users";
 import { isAuthenticated, isOwner } from "../middlewares";
 
 export default (router: express.Router) => {
@@ -8,6 +8,8 @@ export default (router: express.Router) => {
    * @swagger
    * /users:
    *   get:
+   *     tags:
+   *       - Users
    *     summary: Retrieve a list of all users
    *     responses:
    *       200:
@@ -26,12 +28,14 @@ export default (router: express.Router) => {
    */
   router.get("/users", getAllUsers);
 
-  router.get("/users", isAuthenticated, getAllUsers);
+  // router.get("/users", isAuthenticated, getAllUsers);
 
   /**
    * @swagger
    * /users/{id}:
    *   delete:
+   *     tags:
+   *       - Users
    *     summary: Delete a user by ID
    *     parameters:
    *       - in: path
@@ -52,6 +56,8 @@ export default (router: express.Router) => {
    * @swagger
    * /users/{id}:
    *   put:
+   *     tags:
+   *       - Users
    *     summary: Update a user's username by ID
    *     parameters:
    *       - in: path
@@ -75,5 +81,5 @@ export default (router: express.Router) => {
    *       400:
    *         description: Bad request
    */
-  // router.put("/users/:id", updateUser);
+  router.put("/users/:id", updateUser);
 };
